@@ -28,10 +28,6 @@ const OneRecipe = ({ data, preview }) => {
   const { recipe } = data;
   const [likes, setLikes] = useState(data.recipe.likes);
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
   const addLike = async () => {
     const res = await fetch("/api/handle-like", {
       method: "POST",
