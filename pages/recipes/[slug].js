@@ -25,11 +25,12 @@ const recipeQuery = `*[_type == 'recipe' && slug.current == $slug][0]{
 }`;
 
 const OneRecipe = ({ data, preview }) => {
+  const { recipe } = data;
+  const [likes, setLikes] = useState(data.recipe.likes);
+
   if (!data) {
     return <div>Loading...</div>;
   }
-  const { recipe } = data;
-  const [likes, setLikes] = useState(data.recipe.likes);
 
   const addLike = async () => {
     const res = await fetch("/api/handle-like", {
