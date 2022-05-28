@@ -29,7 +29,7 @@ const OneRecipe = ({ data, preview }) => {
     return <div>Loading...</div>;
   }
   const { recipe } = data;
-  const [likes, setLikes] = useState(data?.recipe?.likes);
+  const [likes, setLikes] = useState(data.recipe.likes);
 
   const addLike = async () => {
     const res = await fetch("/api/handle-like", {
