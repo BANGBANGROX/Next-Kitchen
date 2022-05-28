@@ -1,9 +1,4 @@
-import {
-  sanityClient,
-  urlFor,
-  usePreviewSubscription,
-  PortableText,
-} from "../../lib/sanity";
+import { sanityClient, urlFor, PortableText } from "../../lib/sanity";
 import { useState } from "react";
 
 const recipeQuery = `*[_type == 'recipe' && slug.current == $slug][0]{
@@ -25,9 +20,13 @@ const recipeQuery = `*[_type == 'recipe' && slug.current == $slug][0]{
 }`;
 
 const OneRecipe = ({ data, preview }) => {
-  const { recipe } = data;
-  const [likes, setLikes] = useState(data.recipe.likes);
+  const [likes, setLikes] = useState(data?.recipe?.likes);
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const { recipe } = data;
   const addLike = async () => {
     const res = await fetch("/api/handle-like", {
       method: "POST",
